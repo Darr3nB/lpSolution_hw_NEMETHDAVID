@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         StringBuilder htmlBuilder = new StringBuilder();
@@ -17,6 +19,14 @@ public class Main {
 
         htmlBuilder.append("</table><a href=\"http://lpsolutions.hu\">L&P Solutions</a></body></html>");
         String html = htmlBuilder.toString();
+
+        Scanner tagRemoveScanner = new Scanner(System.in);
+        System.out.println("Enter a coma-separated list of HTML elements to remove (h1,p,span): ");
+        String[] elementsToRemove = tagRemoveScanner.nextLine().split(",");
+
+        for (String element : elementsToRemove) {
+            html = html.replaceAll("<" + element + "[^>]*>|</" + element + ">", "");
+        }
 
         System.out.println(html);
     }
