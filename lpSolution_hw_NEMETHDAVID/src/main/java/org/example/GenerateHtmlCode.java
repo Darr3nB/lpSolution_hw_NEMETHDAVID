@@ -51,19 +51,19 @@ public class GenerateHtmlCode {
      * @return the HTML code with the specified elements removed
      */
     private String removeTags(String htmlCode) {
-        Scanner tagRemoveScanner = new Scanner(System.in);
-        System.out.println("Enter a coma-separated list of HTML elements to remove (h1,p,span) or type \"no\" if you don't want to remove any tags: ");
-        String[] elementsToRemove = tagRemoveScanner.nextLine().split(",");
-        if (elementsToRemove[0].equalsIgnoreCase("no") || elementsToRemove.length <= 0) {
+        try (Scanner tagRemoveScanner = new Scanner(System.in)) {
+            System.out.println("Enter a coma-separated list of HTML elements to remove (h1,p,span) or type \"no\" if you don't want to remove any tags: ");
+            String[] elementsToRemove = tagRemoveScanner.nextLine().split(",");
+            if (elementsToRemove.length == 0 || elementsToRemove[0].equalsIgnoreCase("no")) {
+                return htmlCode;
+            }
+
+            for (String element : elementsToRemove) {
+                htmlCode = htmlCode.replaceAll("<" + element + "[^>]*>|</" + element + ">", "");
+            }
+
             return htmlCode;
         }
-
-        for (String element : elementsToRemove) {
-            htmlCode = htmlCode.replaceAll("<" + element + "[^>]*>|</" + element + ">", "");
-        }
-        tagRemoveScanner.close();
-
-        return htmlCode;
     }
 
     /**
