@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class GenerateHtmlCode {
+    /**
+     * Builds an HTML code using the command line arguments, removes specified tags, prints the resulting HTML code to the console, and saves it to a file named "output.html".
+     *
+     * @param args an array of command line arguments representing API keys and Name-Email address pairs
+     */
     public void run(String[] args) {
         String html = buildHtmlCode(args);
 
