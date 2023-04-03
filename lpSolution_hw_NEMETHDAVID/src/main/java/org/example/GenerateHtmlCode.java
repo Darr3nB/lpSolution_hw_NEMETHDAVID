@@ -15,6 +15,12 @@ public class GenerateHtmlCode {
         writeHtmlCodeToFile(html);
     }
 
+    /**
+     * Builds an HTML code that displays a table with the given Name-Email address pairs.
+     *
+     * @param args the Name-Email address pairs
+     * @return the HTML code as a string
+     */
     private String buildHtmlCode(String[] args) {
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<!DOCTYPE html><html><head><title>Németh Dávid - Teszt Feladat</title></head><body>");
@@ -33,6 +39,12 @@ public class GenerateHtmlCode {
         return htmlBuilder.toString();
     }
 
+    /**
+     * Removes the specified HTML elements from the given HTML code.
+     *
+     * @param htmlCode the HTML code to remove elements from
+     * @return the HTML code with the specified elements removed
+     */
     private String removeTags(String htmlCode) {
         Scanner tagRemoveScanner = new Scanner(System.in);
         System.out.println("Enter a coma-separated list of HTML elements to remove (h1,p,span) or type no if you don't want to remove any tags: ");
@@ -49,6 +61,11 @@ public class GenerateHtmlCode {
         return htmlCode;
     }
 
+    /**
+     * Writes the given HTML code to a file named "output.html" in the current directory.
+     *
+     * @param htmlCode the HTML code to write to file
+     */
     private void writeHtmlCodeToFile(String htmlCode) {
         try {
             File outputFile = new File("output.html");
