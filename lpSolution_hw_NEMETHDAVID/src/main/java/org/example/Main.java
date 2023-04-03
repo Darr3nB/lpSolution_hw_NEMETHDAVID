@@ -27,6 +27,7 @@ public class Main {
         for (String element : elementsToRemove) {
             html = html.replaceAll("<" + element + "[^>]*>|</" + element + ">", "");
         }
+        tagRemoveScanner.close();
 
         System.out.println(html);
     }
