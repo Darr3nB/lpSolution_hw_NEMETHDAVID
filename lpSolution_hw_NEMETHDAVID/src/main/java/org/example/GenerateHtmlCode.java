@@ -6,32 +6,16 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class GenerateHtmlCode {
-    public void run(String[] args){
+    public void run(String[] args) {
         String html = buildHtmlCode(args);
 
-        Scanner tagRemoveScanner = new Scanner(System.in);
-        System.out.println("Enter a coma-separated list of HTML elements to remove (h1,p,span): ");
-        String[] elementsToRemove = tagRemoveScanner.nextLine().split(",");
-
-        for (String element : elementsToRemove) {
-            html = html.replaceAll("<" + element + "[^>]*>|</" + element + ">", "");
-        }
-        tagRemoveScanner.close();
-
+        html = removeTags(html);
         System.out.println(html);
 
-        try {
-            File outputFile = new File("output.html");
-            FileWriter fileWriter = new FileWriter(outputFile);
-            fileWriter.write(html);
-            fileWriter.close();
-            System.out.println("HTML code saved to output.html");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the HTML code to file: " + e.getMessage());
-        }
+        writeHtmlCodeToFile(html);
     }
 
-    private String buildHtmlCode(String[] args){
+    private String buildHtmlCode(String[] args) {
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<!DOCTYPE html><html><head><title>Németh Dávid - Teszt Feladat</title></head><body>");
         htmlBuilder.append("<h1>Teszt Feladat</h1><p><a href=\"https://github.com/Darr3nB/lpSolution_hw_NEMETHDAVID\">Megoldás</a></p>");
@@ -44,8 +28,33 @@ public class GenerateHtmlCode {
 
             htmlBuilder.append(String.format("<tr><td>Név</td><td>%s</td></tr><tr><td>Elérhetőség</td><td>%s</td></tr>", name, mail));
         }
-
         htmlBuilder.append("</table><a href=\"http://lpsolutions.hu\">L&P Solutions</a></body></html>");
+
         return htmlBuilder.toString();
+    }
+
+    private String removeTags(String htmlCode) {
+        Scanner tagRemoveScanner = new Scanner(System.in);
+        System.out.println("Enter a coma-separated list of HTML elements to remove (h1,p,span): ");
+        String[] elementsToRemove = tagRemoveScanner.nextLine().split(",");
+
+        for (String element : elementsToRemove) {
+            htmlCode = htmlCode.replaceAll("<" + element + "[^>]*>|</" + element + ">", "");
+        }
+        tagRemoveScanner.close();
+
+        return htmlCode;
+    }
+
+    private void writeHtmlCodeToFile(String htmlCode) {
+        try {
+            File outputFile = new File("output.html");
+            FileWriter fileWriter = new FileWriter(outputFile);
+            fileWriter.write(htmlCode);
+            fileWriter.close();
+            System.out.println("HTML code saved to output.html");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the HTML code to file: " + e.getMessage());
+        }
     }
 }
